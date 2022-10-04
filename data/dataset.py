@@ -201,9 +201,9 @@ class HDMapNetSemanticDataset(HDMapNetDataset):
         return imgs, trans, rots, intrins, post_trans, post_rots, lidar_data, lidar_mask, car_trans, yaw_pitch_roll, semantic_masks, instance_masks, direction_masks
 
 
-def semantic_dataset(version, dataroot, data_conf, bsz, nworkers):
-    train_dataset = HDMapNetSemanticDataset(version, dataroot, data_conf, is_train=True)
-    val_dataset = HDMapNetSemanticDataset(version, dataroot, data_conf, is_train=False)
+def semantic_dataset(version, dataroot, data_conf, bsz, nworkers, is_mono=False):
+    train_dataset = HDMapNetSemanticDataset(version, dataroot, data_conf, is_train=True, is_mono=is_mono)
+    val_dataset = HDMapNetSemanticDataset(version, dataroot, data_conf, is_train=False, is_mono=is_mono)
 
     train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=bsz, shuffle=True, num_workers=nworkers, drop_last=True)
     val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=bsz, shuffle=False, num_workers=nworkers)

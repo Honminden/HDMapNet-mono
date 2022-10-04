@@ -49,7 +49,7 @@ def train(args):
         'angle_class': args.angle_class,
     }
 
-    train_loader, val_loader = semantic_dataset(args.version, args.dataroot, data_conf, args.bsz, args.nworkers)
+    train_loader, val_loader = semantic_dataset(args.version, args.dataroot, data_conf, args.bsz, args.nworkers, is_mono=args.mono)
     model = get_model(args.model, data_conf, args.instance_seg, args.embedding_dim, args.direction_pred, args.angle_class)
 
     if args.finetune:
@@ -151,6 +151,7 @@ if __name__ == '__main__':
 
     # model config
     parser.add_argument("--model", type=str, default='HDMapNet_cam')
+    parser.add_argument('--mono', action='store_true') # use monocular dataset
 
     # training config
     parser.add_argument("--nepochs", type=int, default=30)
